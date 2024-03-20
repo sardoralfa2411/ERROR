@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Tomorrow&family=Raleway&display=swap");
+
+body {
+	background: repeating-linear-gradient(
+		0deg,
+		#111111 25%,
+		#111111 50%,
+		#222222 50%,
+		#222222 75%
+	);
+	background-size: 20px 20px;
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	font-family: "Raleway", sans-serif;
+	justify-content: center;
+	align-items: center;
+}
+
+.glitch {
+	position: relative;
+	color: #fff;
+	font-size: 60px;
+}
+
+.line {
+	&:not(:first-child) {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	@for $i from 1 through 10 {
+		&:nth-child(#{$i}) {
+			animation: clip 3000ms $i * -300ms linear infinite,
+				glitch#{$i} 500ms random(1000) * -1ms linear infinite;
+
+			@keyframes glitch#{$i} {
+				0% {
+					transform: translateX(0);
+				}
+				80% {
+					transform: translateX(0);
+					color: #fff;
+				}
+				85% {
+					transform: translateX(random(10) - 5px);
+					color: #4e9a26;
+				}
+				90% {
+					transform: translateX(random(10) - 5px);
+					color: #ac1212;
+				}
+				95% {
+					transform: translateX(random(10) - 5px);
+					color: #fff;
+				}
+				100% {
+					transform: translateX(0);
+				}
+			}
+		}
+	}
+}
+
+@keyframes clip {
+	0% {
+		clip-path: polygon(0 -20%, 100% -20%, 100% 0%, 0 0);
+	}
+	100% {
+		clip-path: polygon(0 100%, 100% 100%, 100% 120%, 0 120%);
+	}
+}
+
+canvas {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+.error-modal {
+	position: absolute;
+	padding: 20px;
+	background-color: #330;
+	border: 2px solid #fff;
+	border-radius: 10px;
+	z-index: 8;
+	display: none;
+}
+.error-title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 10px;
+	z-index: 9;
+}
+.error-message {
+	font-size: 18px;
+	color: #fff;
+	z-index: 9;
+}
